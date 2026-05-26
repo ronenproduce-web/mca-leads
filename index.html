@@ -700,21 +700,20 @@ async function submitForm(){
   const btn = document.querySelector('#step2 .btn-primary');
   btn.textContent = 'Submitting...';
   btn.disabled = true;
+  const base = 'https://script.google.com/macros/s/AKfycbx2hq1lRrMN1nTAs8VUKlriTmlC6R-fom2WkN0BBb19q_v8FsF4xdwlPKrh4t-brM50Hw/exec';
   const params = new URLSearchParams({
-    'First Name': fname,
-    'Last Name': lname,
-    'Phone': phone,
-    'Business Name': bizname,
-    'Monthly Revenue': document.getElementById('revenue').value,
-    'Industry': document.getElementById('industry').value,
-    'Funding Amount': document.getElementById('amount').value,
+    fn: fname,
+    ln: lname,
+    ph: phone,
+    biz: bizname,
+    rev: document.getElementById('revenue').value,
+    ind: document.getElementById('industry').value,
+    amt: document.getElementById('amount').value,
   });
   try {
-    await fetch('https://script.google.com/macros/s/AKfycbx2hq1lRrMN1nTAs8VUKlriTmlC6R-fom2WkN0BBb19q_v8FsF4xdwlPKrh4t-brM50Hw/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: params.toString()
+    await fetch(base + '?' + params.toString(), {
+      method: 'GET',
+      mode: 'no-cors'
     });
     document.getElementById('form-body').style.display='none';
     document.getElementById('success-wrap').style.display='block';
