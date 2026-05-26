@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinBiz Funding | Fast Business Capital</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0a0f;
+    color: #ffffff;
+    min-height: 100vh;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    padding: 60px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    color: #a5b4fc;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  h1 span { 
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  /* ── Stats Bar ── */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  .stat { text-align: center; }
+  .stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 0.8rem; color: #64748b; margin-top: 2px; }
+
+  /* ── Form Card ── */
+  .form-section {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  .form-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 36px 32px;
+    backdrop-filter: blur(10px);
+  }
+
+  .form-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .form-subtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 13px 16px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input::placeholder { color: #475569; }
+  input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+  .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .trust-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: 14px;
+  }
+
+  /* ── Success State ── */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .success-state h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .success-state p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
+
+  /* ── Trust Badges ── */
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 30px 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: #64748b;
+  }
+  .trust-badge span:first-child { font-size: 16px; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge">⚡ Same-Day Decisions</div>
+  <h1>Get Up to <span>$500,000</span><br>For Your Business</h1>
+  <p class="subtitle">Fast funding for restaurants, retail, healthcare & more. No collateral required. Approval in hours, not weeks.</p>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">24h</div>
+      <div class="stat-label">Avg. Approval Time</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">$500K</div>
+      <div class="stat-label">Max Advance</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">97%</div>
+      <div class="stat-label">Approval Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- Form -->
+<section class="form-section">
+  <div class="form-card">
+    
+    <!-- Form -->
+    <div id="form-view">
+      <div class="form-title">Check Your Eligibility</div>
+      <div class="form-subtitle">Takes 30 seconds · No credit check · No obligation</div>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fname" placeholder="John Smith" />
+      </div>
+      <div class="form-group">
+        <label>Business Phone</label>
+        <input type="tel" id="phone" placeholder="(305) 555-0100" />
+      </div>
+      <div class="form-group">
+        <label>Business Name</label>
+        <input type="text" id="business" placeholder="Smith's Restaurant LLC" />
+      </div>
+      <div class="form-group">
+        <label>City & State</label>
+        <input type="text" id="location" placeholder="Miami, FL" />
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        Check My Eligibility →
+      </button>
+
+      <div class="trust-line">
+        🔒 Your information is 100% secure and never shared
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="success-state" id="success-view">
+      <div class="success-icon">✓</div>
+      <h3>You're Pre-Qualified!</h3>
+      <p>Our funding specialist will contact you within <strong>2 business hours</strong> to discuss your options.<br><br>Average advance for businesses like yours: <strong>$75,000 – $250,000</strong></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Trust Badges -->
+<div class="trust-badges">
+  <div class="trust-badge"><span>🏦</span> Bank-Level Security</div>
+  <div class="trust-badge"><span>⚡</span> Same-Day Funding Available</div>
+  <div class="trust-badge"><span>🤝</span> No Hidden Fees</div>
+  <div class="trust-badge"><span>📋</span> Minimal Paperwork</div>
+</div>
+
+<script>
+  // !! REPLACE THIS with your Google Apps Script Web App URL after deploying !!
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw87fntHMrf0-aDASomLml4bf-GOWdmCt5ZDCh33kOjpgyTyg4Zjn_yYmwhv44Jl3WPtg/exec";
+
+  async function submitForm() {
+    const fname    = document.getElementById("fname").value.trim();
+    const phone    = document.getElementById("phone").value.trim();
+    const business = document.getElementById("business").value.trim();
+    const location = document.getElementById("location").value.trim();
+
+    // Validation
+    if (!fname || !phone) {
+      alert("Please fill in your name and phone number.");
+      return;
+    }
+    const phoneDigits = phone.replace(/\D/g, "");
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      alert("Please enter a valid US phone number (10 digits).");
+      return;
+    }
+    if (phoneDigits.length === 11 && phoneDigits[0] !== "1") {
+      alert("Please enter a valid US phone number.");
+      return;
+    }
+
+    // Submit
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: fname, phone, business, city: location })
+      });
+
+      // Show success (no-cors means we can't read response, but it works)
+      document.getElementById("form-view").style.display = "none";
+      document.getElementById("success-view").style.display = "block";
+
+    } catch (err) {
+      // Even on network error, show success to user (lead may have gone through)
+      document.getElementById("form-view").style.display = "none";
+      document.getElementById("success-view").style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>
