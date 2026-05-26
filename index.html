@@ -700,7 +700,7 @@ async function submitForm(){
   const btn = document.querySelector('#step2 .btn-primary');
   btn.textContent = 'Submitting...';
   btn.disabled = true;
-  const data = {
+  const params = new URLSearchParams({
     'First Name': fname,
     'Last Name': lname,
     'Phone': phone,
@@ -708,16 +708,14 @@ async function submitForm(){
     'Monthly Revenue': document.getElementById('revenue').value,
     'Industry': document.getElementById('industry').value,
     'Funding Amount': document.getElementById('amount').value,
-    '_subject': 'New MCA Lead — ' + bizname + ' (' + fname + ' ' + lname + ')',
-  };
+  });
   try {
     await fetch('https://script.google.com/macros/s/AKfycbx2hq1lRrMN1nTAs8VUKlriTmlC6R-fom2WkN0BBb19q_v8FsF4xdwlPKrh4t-brM50Hw/exec', {
       method: 'POST',
       mode: 'no-cors',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: params.toString()
     });
-    // no-cors = can't read response but data goes through
     document.getElementById('form-body').style.display='none';
     document.getElementById('success-wrap').style.display='block';
   } catch(e){
